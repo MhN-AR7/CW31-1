@@ -10,6 +10,7 @@ import ir.maktabsharif.cw311.dto.UserRespDTO;
 import ir.maktabsharif.cw311.repository.UserRepo;
 import ir.maktabsharif.cw311.repository.impl.UserRepoImpl;
 import ir.maktabsharif.cw311.service.UserService;
+import ir.maktabsharif.cw311.util.PasswordEncoder;
 import ir.maktabsharif.cw311.util.Rule;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
         );
 
         Rule.check(
-                userRepo.findByUsername(userReqDTO.getUsername()).isPresent(),
+                userRepo.isUserExist(userReqDTO.getUsername()),
                 BusinessException::new,
                 "Username exists!"
         );
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
         UserDAO userDAO = userRepo.findByUsername(userLoginDTO.getUsername())
                 .orElseThrow(() -> new AuthException("Login failed!"));
 
-        if (!userDAO.getPassword().equals(userLoginDTO.getPassword())) {
+        if (!PasswordEncoder.validatePass(userLoginDTO.getPassword(), userDAO.getPassword())) {
             throw new AuthException("Login failed!");
         }
 

@@ -1,0 +1,7 @@
+POST http://localhost:8081/CW31_1_war/signup
+Content-Type: application/json
+
+{
+  "username" : "Mahan",
+  "password" : "1234"
+}

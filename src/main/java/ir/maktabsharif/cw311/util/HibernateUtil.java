@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 public class HibernateUtil
 {
-    private static final String PERSISTENCE_UNIT = "postgresql-unit";
+    private static final String PERSISTENCE_UNIT = "cw31-1";
 
     private static EntityManagerFactory emf;
 
