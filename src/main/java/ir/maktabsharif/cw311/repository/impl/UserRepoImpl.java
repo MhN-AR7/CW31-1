@@ -39,4 +39,19 @@ public class UserRepoImpl implements UserRepo {
                                 .getResultList()
         );
     }
+
+    @Override
+    public Optional<UserDAO> findByUsername(String username) {
+        return Optional.ofNullable(
+                HibernateUtil.read(
+                        em ->
+                                em.createQuery(
+                                                "SELECT u FROM UserDAO u WHERE u.username = :username",
+                                                UserDAO.class
+                                        )
+                                        .setParameter("username", username)
+                                        .getSingleResult()
+                )
+        );
+    }
 }

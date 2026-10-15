@@ -9,4 +9,5 @@ public interface UserRepo {
     UserDAO create(UserDAO userDAO);
     Optional<UserDAO> findById(Long id);
     List<UserDAO> findAll();
+    Optional<UserDAO> findByUsername(String username);
 }
