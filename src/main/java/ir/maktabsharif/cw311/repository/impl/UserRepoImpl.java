@@ -34,9 +34,9 @@ public class UserRepoImpl implements UserRepo {
         return HibernateUtil.read(
                 em ->
                         em.createQuery(
-                                "FROM UserDAO",
-                                UserDAO.class
-                        )
+                                        "FROM UserDAO",
+                                        UserDAO.class
+                                )
                                 .getResultList()
         );
     }
@@ -61,9 +61,11 @@ public class UserRepoImpl implements UserRepo {
         return HibernateUtil.read(
                 em ->
                         em.createQuery(
-                                "SELECT NEW ir.maktabsharif.cw311.dto.ExistUsernameDTO(case when count(u) <>0 then true else false end) FROM UserDAO u WHERE u.username = :username",
-                                ExistUsernameDTO.class
-                        )
+                                        "SELECT NEW ir.maktabsharif.cw311.dto.ExistUsernameDTO" +
+                                                "(case when count(u) <>0 then true else false end)" +
+                                                " FROM UserDAO u WHERE u.username = :username",
+                                        ExistUsernameDTO.class
+                                )
                                 .setParameter("username", username)
                                 .getSingleResult()
         ).isExist();
